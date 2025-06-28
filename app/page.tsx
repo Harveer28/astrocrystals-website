@@ -4,25 +4,24 @@ import Image from "next/image";
 const products = [
   {
     name: "Pyrite Bracelet",
-    price: "₹599",
-    image: "/images/pyrite.png",
-  },
-  {
-    name: "Rose Quartz Bracelet",
-    price: "₹799",
-    image: "/images/rose quartz.png",
+    price: "₹699",
+    image: "/images/pyrite.jpg",
   },
   {
     name: "Amethyst Bracelet",
-    price: "₹499",
-    image: "/images/amythest2.png",
+    price: "₹799",
+    image: "/images/amethyst.jpg",
+  },
+  {
+    name: "Rose Quartz Bracelet",
+    price: "₹599",
+    image: "/images/rose.jpg",
   },
 ];
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white text-gray-900">
-
       {/* Navbar */}
       <header className="sticky top-0 bg-white shadow-md z-50">
         <div className="max-w-6xl mx-auto flex justify-between items-center p-4">
@@ -57,7 +56,8 @@ export default function Home() {
           Best-Selling Crystals
         </h2>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-12">
-          Explore our powerful healing crystal bracelets, handcrafted to align your energy.
+          Explore our powerful healing crystal bracelets, handcrafted to align
+          your energy.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
           {products.map((product, index) => (
@@ -93,7 +93,8 @@ export default function Home() {
       <footer id="contact" className="bg-purple-900 text-white py-10 mt-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h3 className="text-xl font-semibold mb-2">Contact Us</h3>
-          <p className="mb-4">Email: support@astrocrystals.in</p>
+          <p className="mb-2">Email: support@astrocrystals.in</p>
+          <p className="mb-2">Phone: +91 9876543210</p>
           <p>© 2025 Astro Crystals. All rights reserved.</p>
         </div>
       </footer>
