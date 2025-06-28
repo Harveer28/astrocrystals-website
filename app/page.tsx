@@ -1,92 +1,102 @@
-'use client';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
+"use client";
+import Image from "next/image";
+
+const products = [
+  {
+    name: "Pyrite Bracelet",
+    price: "₹599",
+    image: "/images/pyrite.png",
+  },
+  {
+    name: "Rose Quartz Bracelet",
+    price: "₹799",
+    image: "/images/rose quartz.png",
+  },
+  {
+    name: "Amethyst Bracelet",
+    price: "₹499",
+    image: "/images/amythest2.png",
+  },
+];
 
 export default function Home() {
   return (
-    <main className="bg-white text-gray-800">
-      
+    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white text-gray-900">
+
+      {/* Navbar */}
+      <header className="sticky top-0 bg-white shadow-md z-50">
+        <div className="max-w-6xl mx-auto flex justify-between items-center p-4">
+          <h1 className="text-2xl font-bold text-purple-800">Astro Crystals</h1>
+          <nav className="space-x-4 text-purple-700">
+            <a href="/">Home</a>
+            <a href="#products">Products</a>
+            <a href="#contact">Contact</a>
+          </nav>
+        </div>
+      </header>
+
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-purple-100 to-blue-100 py-20 text-center">
-        <motion.h1 
-          className="text-5xl font-bold mb-4"
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
+      <section className="text-center py-20 bg-gradient-to-r from-purple-100 to-purple-200">
+        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-purple-800 font-playfair">
+          Discover the Power of Crystals
+        </h2>
+        <p className="text-lg text-purple-700 max-w-xl mx-auto mb-8">
+          Healing energies crafted in the form of beautiful crystal bracelets.
+        </p>
+        <a
+          href="#products"
+          className="inline-block bg-purple-700 text-white px-6 py-3 rounded-full font-semibold hover:bg-purple-800 transition"
         >
-          Welcome to Astro Crystals
-        </motion.h1>
-        <motion.p 
-          className="text-lg mb-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          Discover the power of healing crystals based on your zodiac sign.
-        </motion.p>
+          Shop Now
+        </a>
       </section>
 
-      {/* Products Section */}
-      <section className="py-16 px-8">
-        <h2 className="text-3xl font-bold text-center mb-12">Our Crystal Bracelets</h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          
-          {/* Pyrite */}
-          <div className="shadow-lg rounded-lg p-6 text-center border hover:shadow-xl">
-            <Image src="/images/pyrite.jpeg" alt="Pyrite" width={300} height={300} className="mx-auto rounded-md" />
-            <h3 className="text-xl font-semibold mt-4">Pyrite</h3>
-            <p className="text-sm mt-2">Boosts confidence, attracts money and abundance.</p>
-          </div>
-
-          {/* Amethyst */}
-          <div className="shadow-lg rounded-lg p-6 text-center border hover:shadow-xl">
-            <Image src="/images/amythest2.png" alt="Amethyst" width={300} height={300} className="mx-auto rounded-md" />
-            <h3 className="text-xl font-semibold mt-4">Amethyst</h3>
-            <p className="text-sm mt-2">Relieves stress, promotes inner peace and intuition.</p>
-          </div>
-
-          {/* Rose Quartz */}
-          <div className="shadow-lg rounded-lg p-6 text-center border hover:shadow-xl">
-            <Image src="/images/rose quartz.jpg" alt="Rose Quartz" width={300} height={300} className="mx-auto rounded-md" />
-            <h3 className="text-xl font-semibold mt-4">Rose Quartz</h3>
-            <p className="text-sm mt-2">Known for love, compassion, and heart healing.</p>
-          </div>
+      {/* Product Section */}
+      <section id="products" className="py-16 text-center">
+        <h2 className="text-3xl font-bold mb-8 text-purple-900 font-playfair">
+          Best-Selling Crystals
+        </h2>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-12">
+          Explore our powerful healing crystal bracelets, handcrafted to align your energy.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
+          {products.map((product, index) => (
+            <div
+              key={index}
+              className="bg-white border border-purple-200 p-6 rounded-lg shadow-sm hover:shadow-lg transition"
+            >
+              <Image
+                src={product.image}
+                alt={product.name}
+                width={300}
+                height={200}
+                className="rounded-md mx-auto"
+              />
+              <h3 className="mt-4 text-xl font-semibold text-purple-800">
+                {product.name}
+              </h3>
+              <p className="text-purple-600 font-bold mt-2">{product.price}</p>
+              <div className="mt-4 flex justify-center space-x-4">
+                <button className="px-4 py-2 bg-purple-700 text-white rounded hover:bg-purple-800 transition">
+                  Add to Cart
+                </button>
+                <button className="px-4 py-2 border border-purple-700 text-purple-700 rounded hover:bg-purple-100 transition">
+                  Buy Now
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
-      </section>
-
-      {/* Review Section */}
-      <section className="bg-gray-100 py-16 px-6">
-        <h2 className="text-3xl font-bold text-center mb-10">What Our Customers Say</h2>
-        <div className="max-w-3xl mx-auto">
-          <div className="bg-white shadow-md p-6 rounded-lg mb-6">
-            <p className="text-sm">"These crystals are pure magic! I feel more grounded and positive every day."</p>
-            <p className="mt-2 font-semibold text-right">- Priya Sharma</p>
-          </div>
-          <div className="bg-white shadow-md p-6 rounded-lg">
-            <p className="text-sm">"I bought the rose quartz bracelet and it genuinely brought emotional calm."</p>
-            <p className="mt-2 font-semibold text-right">- Rohan Verma</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Video Section */}
-      <section className="py-16 px-6 text-center">
-        <h2 className="text-3xl font-bold mb-6">Watch Our Crystal Energy In Action</h2>
-        <video
-          src="/video/promo.mp4"
-          controls
-          autoPlay
-          loop
-          muted
-          className="mx-auto w-full max-w-2xl rounded-lg shadow-lg"
-        ></video>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-6 mt-10">
-        <div className="text-center text-sm">
-          © {new Date().getFullYear()} Astro Crystals | All rights reserved.
+      <footer id="contact" className="bg-purple-900 text-white py-10 mt-16">
+        <div className="max-w-6xl mx-auto px-4 text-center">
+          <h3 className="text-xl font-semibold mb-2">Contact Us</h3>
+          <p className="mb-4">Email: support@astrocrystals.in</p>
+          <p>© 2025 Astro Crystals. All rights reserved.</p>
         </div>
       </footer>
-    </main>
+    </div>
   );
 }
