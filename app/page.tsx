@@ -1,89 +1,72 @@
 'use client';
-import { motion } from 'framer-motion';
+
 import Image from 'next/image';
 
 export default function Home() {
   return (
-    <main className="bg-white text-gray-900">
-      {/* Hero Section */}
-      <section className="bg-blue-700 text-white py-20 text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Astro Crystals</h1>
-        <p className="text-lg">Explore healing crystal bracelets tailored to your zodiac and energy.</p>
-      </section>
+    <div className="min-h-screen bg-gray-50 text-center px-4 py-10">
+      <h1 className="text-4xl font-bold text-blue-700 mb-4">Welcome to Astro Crystals</h1>
+      <p className="text-lg text-gray-600 mb-10">Explore healing crystal bracelets tailored to your zodiac and energy.</p>
 
-      {/* Products Section */}
-      <section className="py-16 px-6 max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center text-blue-800 mb-4">Best-Selling Crystals</h2>
-        <p className="text-center text-gray-600 mb-10">
-          Explore our powerful healing crystal bracelets, handcrafted to align your energy.
-        </p>
+      <h2 className="text-3xl font-semibold mb-6 text-blue-700">Best-Selling Crystals</h2>
+      <p className="text-gray-500 mb-8">Explore our powerful healing crystal bracelets, handcrafted to align your energy.</p>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {/* Pyrite */}
-          <motion.div whileHover={{ scale: 1.05 }} className="border rounded-lg p-4 shadow-md text-center">
-            <img src="/images/pyrite.jpg" alt="Pyrite Bracelet" className="w-full h-48 object-cover rounded mb-4" />
-            <h3 className="text-xl font-semibold">Pyrite Bracelet</h3>
-            <p className="text-blue-700 font-bold mt-2">₹699</p>
-            <div className="flex justify-center gap-4 mt-4">
-              <button className="bg-indigo-600 text-white px-4 py-2 rounded">Add to Cart</button>
-              <button className="border border-indigo-600 text-indigo-600 px-4 py-2 rounded">Buy Now</button>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-16">
+        {[
+          {
+            name: 'Pyrite Bracelet',
+            price: '₹699',
+            image: '/images/pyrite.jpg',
+          },
+          {
+            name: 'Amethyst Bracelet',
+            price: '₹799',
+            image: '/images/amethyst.jpg',
+          },
+          {
+            name: 'Rose Quartz Bracelet',
+            price: '₹599',
+            image: '/images/rose-quartz.jpg',
+          },
+        ].map((product, index) => (
+          <div key={index} className="bg-white rounded-lg shadow-md p-4">
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full h-48 object-contain mb-4 rounded"
+            />
+            <h3 className="text-xl font-semibold">{product.name}</h3>
+            <p className="text-blue-700 mt-1 font-bold">{product.price}</p>
+            <div className="mt-4 flex justify-center gap-4">
+              <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Add to Cart</button>
+              <button className="border border-blue-600 text-blue-600 px-4 py-2 rounded hover:bg-blue-50">Buy Now</button>
             </div>
-          </motion.div>
-
-          {/* Amethyst */}
-          <motion.div whileHover={{ scale: 1.05 }} className="border rounded-lg p-4 shadow-md text-center">
-            <img src="/images/amethyst.jpg" alt="Amethyst Bracelet" className="w-full h-48 object-cover rounded mb-4" />
-            <h3 className="text-xl font-semibold">Amethyst Bracelet</h3>
-            <p className="text-blue-700 font-bold mt-2">₹799</p>
-            <div className="flex justify-center gap-4 mt-4">
-              <button className="bg-indigo-600 text-white px-4 py-2 rounded">Add to Cart</button>
-              <button className="border border-indigo-600 text-indigo-600 px-4 py-2 rounded">Buy Now</button>
-            </div>
-          </motion.div>
-
-          {/* Rose Quartz */}
-          <motion.div whileHover={{ scale: 1.05 }} className="border rounded-lg p-4 shadow-md text-center">
-            <img src="/images/rose-quartz.jpg" alt="Rose Quartz Bracelet" className="w-full h-48 object-cover rounded mb-4" />
-            <h3 className="text-xl font-semibold">Rose Quartz Bracelet</h3>
-            <p className="text-blue-700 font-bold mt-2">₹599</p>
-            <div className="flex justify-center gap-4 mt-4">
-              <button className="bg-indigo-600 text-white px-4 py-2 rounded">Add to Cart</button>
-              <button className="border border-indigo-600 text-indigo-600 px-4 py-2 rounded">Buy Now</button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Review Section */}
-      <section className="py-12 bg-gray-50 text-center">
-        <h2 className="text-2xl font-bold mb-6 text-blue-800">What Our Customers Say</h2>
-        <div className="grid md:grid-cols-3 gap-6 px-4 max-w-5xl mx-auto">
-          <div className="bg-white p-6 rounded shadow">
-            <p className="italic">"Absolutely love the energy!"</p>
-            <p className="mt-2 text-sm text-gray-500">- Verified Customer</p>
           </div>
-          <div className="bg-white p-6 rounded shadow">
-            <p className="italic">"I felt a shift in just a week!"</p>
-            <p className="mt-2 text-sm text-gray-500">- Verified Customer</p>
-          </div>
-          <div className="bg-white p-6 rounded shadow">
-            <p className="italic">"High-quality and beautiful"</p>
-            <p className="mt-2 text-sm text-gray-500">- Verified Customer</p>
-          </div>
-        </div>
-      </section>
+        ))}
+      </div>
 
-      {/* WhatsApp Chat Button */}
-      <section className="py-8 text-center">
-        <a
-          href="https://wa.me/919999999999" // <-- Replace with your number
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-green-500 text-white px-6 py-3 rounded-full text-lg hover:bg-green-600 transition"
-        >
-          Chat on WhatsApp
-        </a>
-      </section>
-    </main>
+      <h2 className="text-3xl font-semibold text-blue-700 mb-4">What Our Customers Say</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        {[
+          'Absolutely love the energy!',
+          'I felt a shift in just a week!',
+          'High-quality and beautiful!',
+        ].map((review, index) => (
+          <div key={index} className="bg-white p-6 rounded shadow text-gray-600">
+            <p className="italic">"{review}"</p>
+            <p className="mt-2 text-sm">- Verified Customer</p>
+          </div>
+        ))}
+      </div>
+
+      <a
+        href="https://wa.me/919999999999"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="bg-green-500 text-white px-6 py-3 rounded-full hover:bg-green-600 transition"
+      >
+        Chat on WhatsApp
+      </a>
+    </div>
   );
 }
