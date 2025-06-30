@@ -1,91 +1,108 @@
-'use client'
-
-import Image from 'next/image'
-import Link from 'next/link'
-import Head from 'next/head'
-import { useCart } from './context/CartContext'
+'use client';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useCart } from '@/context/CartContext';
 
 export default function Home() {
-  const { cart } = useCart()
+  const { addToCart } = useCart();
+
+  const products = [
+    {
+      id: 1,
+      name: 'Amethyst Bracelet',
+      price: 499,
+      image: '/images/amethyst.jpg',
+    },
+    {
+      id: 2,
+      name: 'Pyrite Bracelet',
+      price: 599,
+      image: '/images/pyrite.jpg',
+    },
+    {
+      id: 3,
+      name: 'Rose Quartz Bracelet',
+      price: 399,
+      image: '/images/rosequartz.jpg',
+    },
+  ];
 
   return (
     <>
-      <Head>
-        <title>Astro Crystals - Healing Bracelets</title>
-        <meta name="description" content="Buy energy healing crystal bracelets – Pyrite, Amethyst, Rose Quartz and more. Personalized recommendations. Free spiritual guidance." />
-        <meta name="keywords" content="astro crystals, healing crystals, pyrite bracelet, amethyst, rose quartz, astrology products" />
-        <meta name="author" content="Astro Crystals" />
-      </Head>
-
-      <main className="min-h-screen bg-gradient-to-b from-purple-100 to-white px-6">
-        {/* Top Navigation */}
-        <nav className="flex justify-between items-center py-4">
-          <h1 className="text-2xl font-bold text-purple-800">Astro Crystals</h1>
-          <div className="space-x-4">
-            <Link href="/" className="text-purple-800 hover:underline">Home</Link>
-            <Link href="/products" className="text-purple-800 hover:underline">Products</Link>
-            <Link href="/about" className="text-purple-800 hover:underline">About</Link>
-            <Link href="/contact" className="text-purple-800 hover:underline">Contact</Link>
-            <Link href="/cart" className="text-purple-800 hover:underline">
-              🛒 Cart ({cart.length})
-            </Link>
-          </div>
-        </nav>
-
-        {/* Hero Section */}
-        <section className="text-center py-10">
-          <h2 className="text-4xl font-bold text-purple-700 mb-4">Discover the Power of Crystals</h2>
-          <p className="text-gray-700 mb-6">Bring peace, abundance and positivity to your life with our energy healing bracelets.</p>
-          <Link href="/products">
-            <button className="bg-purple-700 text-white px-6 py-2 rounded hover:bg-purple-800 transition">Shop Now</button>
-          </Link>
-        </section>
-
-        {/* Products Section */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-8 py-10">
-          {/* Pyrite */}
-          <div className="bg-white shadow-md rounded-lg p-4 text-center">
-            <Image src="/images/pyrite.png" alt="Pyrite Bracelet" width={200} height={200} className="mx-auto rounded" />
-            <h3 className="text-lg font-semibold mt-4">Pyrite Bracelet</h3>
-            <p className="text-gray-600">Attracts wealth and success.</p>
-          </div>
-          {/* Amethyst */}
-          <div className="bg-white shadow-md rounded-lg p-4 text-center">
-            <Image src="/images/amythest.png" alt="Amethyst Bracelet" width={200} height={200} className="mx-auto rounded" />
-            <h3 className="text-lg font-semibold mt-4">Amethyst Bracelet</h3>
-            <p className="text-gray-600">Brings calmness and spiritual insight.</p>
-          </div>
-          {/* Rose Quartz */}
-          <div className="bg-white shadow-md rounded-lg p-4 text-center">
-            <Image src="/images/rose-quartz.png" alt="Rose Quartz Bracelet" width={200} height={200} className="mx-auto rounded" />
-            <h3 className="text-lg font-semibold mt-4">Rose Quartz Bracelet</h3>
-            <p className="text-gray-600">Opens heart to love and compassion.</p>
-          </div>
-        </section>
-
-        {/* About */}
-        <section className="py-12 text-center">
-          <h3 className="text-2xl font-bold text-purple-700 mb-4">Why Choose Astro Crystals?</h3>
-          <p className="text-gray-700 max-w-2xl mx-auto">
-            We provide personalized astrology-based healing crystal bracelets to bring abundance, clarity, and love into your life. All bracelets are spiritually cleansed and energized.
+      {/* 🧿 Head section */}
+      <main className="min-h-screen bg-gradient-to-b from-purple-100 to-white px-4 py-10">
+        <div className="max-w-6xl mx-auto text-center">
+          <h1 className="text-4xl font-bold mb-4 text-purple-800">Welcome to Astro Crystals</h1>
+          <p className="text-gray-700 mb-8 text-lg">
+            Discover the power of healing crystals for your mind, body, and soul.
           </p>
-        </section>
 
-        {/* WhatsApp Chat Button */}
-        <a
-          href="https://wa.me/919999999999?text=Hi%20I%20want%20to%20order%20a%20healing%20crystal"
-          className="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          💬
-        </a>
+          {/* 🔮 Product Section */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            {products.map((product) => (
+              <div key={product.id} className="bg-white rounded-lg shadow-lg p-4">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  width={300}
+                  height={300}
+                  className="mx-auto rounded"
+                />
+                <h2 className="text-xl font-semibold mt-4">{product.name}</h2>
+                <p className="text-gray-600">₹{product.price}</p>
+                <button
+  onClick={() =>
+    addToCart({ ...product, id: product.id.toString(), quantity: 1 })
+  }
+  className="mt-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
+>
+  Add to Cart
+</button>
 
-        {/* Footer */}
-        <footer className="text-center text-gray-600 py-6 text-sm">
-          © 2025 Astro Crystals. All rights reserved.
-        </footer>
+              </div>
+            ))}
+          </div>
+
+          {/* 💬 Review Section */}
+          <div className="mt-16">
+            <h2 className="text-2xl font-bold mb-4 text-purple-700">Customer Reviews</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="bg-white p-4 shadow rounded">
+                <p className="text-gray-800">
+                  "Amazing energy! I can feel the positivity since I started wearing the Amethyst bracelet."
+                </p>
+                <span className="block text-sm text-gray-500 mt-2">– Priya S.</span>
+              </div>
+              <div className="bg-white p-4 shadow rounded">
+                <p className="text-gray-800">
+                  "Fast delivery, great packaging, and authentic crystals. Highly recommended!"
+                </p>
+                <span className="block text-sm text-gray-500 mt-2">– Rohit K.</span>
+              </div>
+            </div>
+          </div>
+
+          {/* 🔗 Page Links */}
+          <div className="mt-16 flex justify-center gap-4 flex-wrap">
+            <Link href="/about" className="text-purple-700 hover:underline">About Us</Link>
+            <Link href="/contact" className="text-purple-700 hover:underline">Contact</Link>
+            <Link href="/products" className="text-purple-700 hover:underline">Products</Link>
+            <Link href="/cart" className="text-purple-700 hover:underline">Cart</Link>
+          </div>
+        </div>
       </main>
+
+      {/* ✅ WhatsApp Button */}
+      <a
+        href="https://wa.me/916350216150"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" width="30" height="30">
+          <path d="M20 4.5A10.47 10.47 0 0012.16 2 10.49 10.49 0 002 12.5c0 1.84.5 3.57 1.36 5.05L2 22l4.7-1.29A10.46 10.46 0 0012.16 23a10.49 10.49 0 0010.34-10.5A10.48 10.48 0 0020 4.5zM12.16 21c-1.56 0-3.07-.4-4.38-1.15l-.31-.18-2.8.77.74-2.73-.2-.34A8.52 8.52 0 013.5 12.5 8.5 8.5 0 0112.16 4a8.5 8.5 0 018.34 8.5 8.5 8.5 0 01-8.34 8.5zm4.58-6.18c-.25-.12-1.47-.73-1.7-.82s-.39-.12-.56.12-.64.82-.78.99-.29.18-.54.06a6.97 6.97 0 01-2.05-1.28 7.6 7.6 0 01-1.4-1.73c-.15-.26-.02-.4.11-.53.11-.12.25-.29.38-.44.13-.14.17-.24.25-.4s.04-.29-.02-.4-.56-1.34-.77-1.83c-.2-.48-.4-.42-.56-.42h-.48c-.18 0-.46.06-.7.29s-.92.9-.92 2.2.94 2.56 1.08 2.74c.13.18 1.86 2.84 4.5 3.98.63.27 1.12.43 1.5.55.63.2 1.2.17 1.65.1.5-.07 1.47-.6 1.68-1.18.2-.59.2-1.1.14-1.18-.06-.09-.23-.14-.48-.25z" />
+        </svg>
+      </a>
     </>
-  )
+  );
 }

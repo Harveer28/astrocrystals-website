@@ -1,21 +1,12 @@
-import "./globals.css";
-import { Inter } from "next/font/google";
-import { CartProvider } from "@/context/CartContext";
+import { ReactNode } from 'react';
+import { CartProvider } from '@/context/CartContext';
 
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata = {
-  title: "Astro Crystals",
-  description: "Healing Crystal Bracelets Store",
-};
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <CartProvider>
-          {children}
-        </CartProvider>
+      <head />
+      <body>
+        <CartProvider>{children}</CartProvider>
       </body>
     </html>
   );
