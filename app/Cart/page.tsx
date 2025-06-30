@@ -1,39 +1,54 @@
-"use client";
-import { useCart } from "@/context/CartContext";
+'use client';
+import { createContext, useContext, useState, ReactNode, Key } from 'react';
 
-export default function CartPage() {
-  const { cart, removeFromCart, clearCart } = useCart();
+type Product = {
+  quantity: number;
+  id: Key | null | undefined;
+  name: string;
+  price: number;
+  image: string;
+};
+
+type CartContextType = {
+  cart: Product[];
+  addToCart: (product: Product) => void;
+  removeFromCart: (id: Key) => void;
+  clearCart: () => void;
+  getTotalPrice: () => number;
+};
+
+const CartContext = createContext<CartContextType | undefined>(undefined);
+
+export function CartProvider({ children }: { children: ReactNode }) {
+  const [cart, setCart] = useState<Product[]>([]);
+
+  const addToCart = (product: Product) => {
+    setCart((prev) => [...prev, product]);
+  };
+
+  const removeFromCart = (id: Key) => {
+    setCart((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const clearCart = () => {
+    setCart([]);
+  };
+
+  const getTotalPrice = () => {
+    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Your Cart</h1>
-      {cart.length === 0 ? (
-        <p>Your cart is empty.</p>
-      ) : (
-        <>
-          {cart.map((item) => (
-            <div key={item.id} className="flex items-center justify-between border-b py-4">
-              <div>
-                <h2 className="font-semibold">{item.name}</h2>
-                <p>₹{item.price} x {item.quantity}</p>
-              </div>
-              <button
-                onClick={() => removeFromCart(item.id)}
-                className="text-red-600 hover:underline"
-              >
-                Remove
-              </button>
-            </div>
-          ))}
-
-          <button
-            onClick={clearCart}
-            className="mt-6 bg-red-600 text-white px-4 py-2 rounded"
-          >
-            Clear Cart
-          </button>
-        </>
-      )}
-    </div>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, getTotalPrice }}>
+      {children}
+    </CartContext.Provider>
   );
+}
+
+export function useCart() {
+  const context = useContext(CartContext);
+  if (!context) {
+    throw new Error('useCart must be used inside CartProvider');
+  }
+  return context;
 }
